@@ -1,0 +1,2 @@
+Corolla,Toyota,2020,20000
+Civic,Honda,2021,22000
