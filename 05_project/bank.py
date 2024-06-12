@@ -59,7 +59,7 @@ class Bank:
         # 本処理
         if user_f and user_t:    
             is_ok_f, is_account_exist_f = user_f.check_ok_to_transfer(account_number_from, amount, True)
-            is_ok_t, is_account_exist_t = user_t.check_ok_to_transfer(account_number_from, amount, False)
+            is_ok_t, is_account_exist_t = user_t.check_ok_to_transfer(account_number_to, amount, False)
             if is_ok_f and is_ok_t:
                 msg = user_f.withdraw(account_number_from, amount)
                 msg = user_t.deposit(account_number_to, amount)
