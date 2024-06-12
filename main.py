@@ -73,11 +73,15 @@ class User:
         self.accounts.append(account)
 
     def delete_account(self, account_number):
-        if account_number in self.accounts:
-            del self.accounts[account_number]
-            return True
+        # 指定されたaccount_numberに一致するアカウントをリストから削除
+        for account in self.accounts:
+            # 削除対象の一致
+            if account.account_number == account_number:
+                # 指定されたオブジェクトをリストから削除
+                self.accounts.remove(account)
+                return True
         return False
-
+    
     def get_account(self, account_number):
         for account in self.accounts:
             if account.account_number == account_number:
@@ -161,7 +165,7 @@ class BankingSystem:
                 break
             else:
                 print("Invalid choice!")
-#1ユーザーid と名前
+#1ユーザーid と名前 同じユーザーが　違う口座を作る可能性があるため別けた
     def create_user(self):
         user_id = input("Enter user ID: ")
         name = input("Enter user name: ")
@@ -169,7 +173,7 @@ class BankingSystem:
             print("User created successfully!")
         else:
             print("User already exists!")
-#2口座の開設　パスワード
+#2口座の開設
     def create_account(self):
         user_id = input("Enter user ID: ")
         account_type = input("Enter account type (savings/checking): ")
