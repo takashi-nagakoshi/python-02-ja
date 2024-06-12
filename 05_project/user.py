@@ -17,6 +17,13 @@ class User:
                 return account
         return None
     
+    def check_account_number_already_exist(self, account_number):
+        account = self.__get_account(account_number)
+        if account:
+            return True
+        else:
+            return False
+
     def create_account(self, account_type, account_number, balance=0.0):
         account = self.__get_account(account_number)
         if account:

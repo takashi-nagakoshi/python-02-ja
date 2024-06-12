@@ -5,21 +5,31 @@ import user as ClassUser
 # Bank情報を管理するクラス 
 class Bank:
     def __init__(self):
-        self.users = {}
+        self.users = []
 
     #___ ___ ___ ___ ___ ___ ___ ___ ___ ___ ___ ___ ___ ___ ___ ___ ___ ___ ___ ___ ___ ___ 
     def __get_user(self, user_id):
-        return self.users.get(user_id, None)
+        for user in self.users:
+            if user.user_id == user_id:
+                return user
+        return None
 
     #___ ___ ___ ___ ___ ___ ___ ___ ___ ___ ___ ___ ___ ___ ___ ___ ___ ___ ___ ___ ___ ___ 
     def create_user(self, user_id, name):
-        if user_id not in self.users:
-            self.users[user_id] = ClassUser.User(user_id, name)
+        existing_user = self.__get_user(user_id)
+        if existing_user:
+            return False
+        else:
+            new_user = ClassUser.User(user_id, name)
+            self.users.append(new_user)
             return True
-        return False
 
     #___ ___ ___ ___ ___ ___ ___ ___ ___ ___ ___ ___ ___ ___ ___ ___ ___ ___ ___ ___ ___ ___ 
     def create_account(self, user_id, account_type, account_number, balance=0.0):
+        for user in self.users:
+            if user.check_account_number_already_exist(account_number):
+                return False
+        
         user = self.__get_user(user_id)
         return user.create_account(account_type, account_number, balance)
     
