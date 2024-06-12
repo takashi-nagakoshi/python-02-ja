@@ -92,18 +92,9 @@ class BankingSystem:
         amount = float(input("Enter amount to deposit: "))
 
         # 入金処理
-        user = self.bank.get_user(user_id)
-        if user:
-            account = user.get_account(account_number)
-            if account:
-                if account.deposit(amount):
-                    print("Deposit successful!")
-                else:
-                    print("Deposit failed!")
-            else:
-                print("Account not found!")
-        else:
-            print("User not found!")
+        self.bank.deposit(user_id = user_id, 
+                          account_number = account_number, 
+                          amount = amount)
 
     #\__ \__ \__ \__ \__ \__ \__ \__ \__ \__ \__ \__ \__ \__ \__ \__ \__ \__ \__ \__ \__ 
     # 口座からの出金
@@ -114,18 +105,9 @@ class BankingSystem:
         amount = float(input("Enter amount to withdraw: "))
 
         # 出金処理
-        user = self.bank.get_user(user_id)
-        if user:
-            account = user.get_account(account_number)
-            if account:
-                if account.withdraw(amount):
-                    print("Withdrawal successful!")
-                else:
-                    print("Withdrawal failed! Check your balance or overdraft limit.")
-            else:
-                print("Account not found!")
-        else:
-            print("User not found!")
+        self.bank.withdraw(user_id = user_id, 
+                           account_number = account_number, 
+                           amount = amount)
 
     #\__ \__ \__ \__ \__ \__ \__ \__ \__ \__ \__ \__ \__ \__ \__ \__ \__ \__ \__ \__ \__ 
     # 口座から別口座への送金
@@ -142,37 +124,24 @@ class BankingSystem:
         amount = float(input("Enter amount to transfer: "))
 
         # 送金処理
-        user_from = self.bank.get_user(user_id_from)
-        user_to = self.bank.get_user(user_id_to)
-        if user_from and user_to:
-            account_from = user_from.get_account(account_number_from)
-            account_to = user_to.get_account(account_number_to)
-            if account_from and account_to:
-                if account_from.withdraw(amount):
-                    account_to.deposit(amount)
-                    print("Transfer successful!")
-                else:
-                    print("Transfer failed! Check your balance or overdraft limit.")
-            else:
-                print("One or both accounts not found!")
-        else:
-            print("One or both users not found!")
+        self.bank.transfer(user_id_from = user_id_from, 
+                           account_number_from = account_number_from,
+                           user_id_to = user_id_to, 
+                           account_number_to = account_number_to, 
+                           amount = amount)
+        return
 
     #\__ \__ \__ \__ \__ \__ \__ \__ \__ \__ \__ \__ \__ \__ \__ \__ \__ \__ \__ \__ \__ 
     # 口座の取引履歴を表示
     def view_transaction_history(self):
+        # ユーザ入力
         user_id = input("Enter user ID: ")
         account_number = input("Enter account number: ")
-        user = self.bank.get_user(user_id)
-        if user:
-            account = user.get_account(account_number)
-            if account:
-                for transaction in account.get_transaction_history():
-                    print(transaction)
-            else:
-                print("Account not found!")
-        else:
-            print("User not found!")
+        
+        # 取引履歴取得処理
+        self.bank.view_transaction_history(user_id = user_id, 
+                                           account_number = account_number)
+        return
 
     #\__ \__ \__ \__ \__ \__ \__ \__ \__ \__ \__ \__ \__ \__ \__ \__ \__ \__ \__ \__ \__ 
     # 口座の残高を表示
@@ -181,16 +150,10 @@ class BankingSystem:
         user_id = input("Enter user ID: ")
         account_number = input("Enter account number: ")
 
-        # 残高表示処理
-        user = self.bank.get_user(user_id)
-        if user:
-            account = user.get_account(account_number)
-            if account:
-                print(f"Account Balance: {account.balance}")
-            else:
-                print("Account not found!")
-        else:
-            print("User not found!")
+        # 口座残高取得処理
+        self.bank.view_balance(user_id = user_id, 
+                               account_number = account_number)
+        return
 
     #\__ \__ \__ \__ \__ \__ \__ \__ \__ \__ \__ \__ \__ \__ \__ \__ \__ \__ \__ \__ \__ 
     # 口座を解約(消去)
@@ -200,10 +163,12 @@ class BankingSystem:
         account_number = input("Enter account number: ")
 
         # 口座消去処理
-        if self.bank.delete_account(user_id, account_number):
+        if self.bank.delete_account(user_id = user_id, 
+                                    account_number = account_number):
             print("Account deleted successfully!")
         else:
             print("Failed to delete account!")
+        return
 
     #\__ \__ \__ \__ \__ \__ \__ \__ \__ \__ \__ \__ \__ \__ \__ \__ \__ \__ \__ \__ \__ 
     # 口座の情報を表示
@@ -213,12 +178,6 @@ class BankingSystem:
         account_number = input("Enter account number: ")
 
         # 口座情報取得
-        user = self.bank.get_user(user_id)
-        if user:
-            account = user.get_account(account_number)
-            if account:
-                print(account)
-            else:
-                print("Account not found!")
-        else:
-            print("User not found!")
+        self.bank.get_account_info(user_id = user_id, 
+                                   account_number = account_number)
+        return
