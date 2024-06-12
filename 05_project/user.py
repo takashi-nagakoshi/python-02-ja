@@ -18,18 +18,24 @@ class User:
         return None
     
     def create_account(self, account_type, account_number, balance=0.0):
-        if account_type == 'savings':
-            account = ClassAccount.SavingsAccount(account_number, balance)
-        elif account_type == 'checking':
-            account = ClassAccount.CheckingAccount(account_number, balance)
-        else:
+        account = self.__get_account(account_number)
+        if account:
+            # 既に同一IDのアカウントがあるとき，口座を追加しないようにする．
             return False
+        else:
+            if account_type == 'savings':
+                account = ClassAccount.SavingsAccount(account_number, balance)
+            elif account_type == 'checking':
+                account = ClassAccount.CheckingAccount(account_number, balance)
+            else:
+                return False
         self.accounts.append(account)
         return True
 
     def delete_account(self, account_number):
-        if account_number in self.accounts:
-            del self.accounts[account_number]
+        account = self.__get_account(account_number)
+        if account:
+            self.accounts.remove(account)
             return True
         return False
     
