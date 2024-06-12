@@ -10,6 +10,7 @@ KEY_VIEW_BALANCE        = "7"
 KEY_DELETE_ACCOUNT      = "8"
 KEY_GET_ACCOUNT_INFO    = "9"
 KEY_QUIT                = "10"
+WAIT_ROW = "....."
 
 #_____________________________________________________________________________________________________#
 # BankingSystem クラス   
@@ -30,6 +31,7 @@ class BankingSystem:
             print(KEY_DELETE_ACCOUNT     + ". Delete Account")
             print(KEY_GET_ACCOUNT_INFO   + ". Get Account Info")
             print(KEY_QUIT               + ". Quit")
+            print(WAIT_ROW)
             choice = input("Enter choice: ")
 
             if choice == KEY_CREATE_USER:
@@ -61,6 +63,7 @@ class BankingSystem:
         # ユーザー入力
         user_id = input("Enter user ID: ")
         name = input("Enter user name: ")
+        print(WAIT_ROW)
 
         # ユーザ登録処理
         if self.bank.create_user(user_id, name):
@@ -76,6 +79,7 @@ class BankingSystem:
         account_type = input("Enter account type (savings/checking): ")
         account_number = input("Enter account number: ")
         balance = float(input("Enter initial balance: "))
+        print(WAIT_ROW)
 
         # 口座開設処理
         if self.bank.create_account(user_id, account_type, account_number, balance):
@@ -90,6 +94,7 @@ class BankingSystem:
         user_id = input("Enter user ID: ")
         account_number = input("Enter account number: ")
         amount = float(input("Enter amount to deposit: "))
+        print(WAIT_ROW)
 
         # 入金処理
         self.bank.deposit(user_id, account_number, amount)
@@ -101,6 +106,7 @@ class BankingSystem:
         user_id = input("Enter user ID: ")
         account_number = input("Enter account number: ")
         amount = float(input("Enter amount to withdraw: "))
+        print(WAIT_ROW)
 
         # 出金処理
         self.bank.withdraw(user_id, account_number, amount)
@@ -118,6 +124,7 @@ class BankingSystem:
 
         # ユーザ入力：送金額の情報
         amount = float(input("Enter amount to transfer: "))
+        print(WAIT_ROW)
 
         # 送金処理
         self.bank.transfer(user_id_from, account_number_from, user_id_to, account_number_to, amount)
@@ -129,6 +136,7 @@ class BankingSystem:
         # ユーザ入力
         user_id = input("Enter user ID: ")
         account_number = input("Enter account number: ")
+        print(WAIT_ROW)
         
         # 取引履歴取得処理
         self.bank.view_transaction_history(user_id, account_number)
@@ -140,6 +148,7 @@ class BankingSystem:
         # ユーザ入力
         user_id = input("Enter user ID: ")
         account_number = input("Enter account number: ")
+        print(WAIT_ROW)
 
         # 口座残高取得処理
         self.bank.view_balance(user_id, account_number)
@@ -151,6 +160,7 @@ class BankingSystem:
         # ユーザ処理
         user_id = input("Enter user ID: ")
         account_number = input("Enter account number: ")
+        print(WAIT_ROW)
 
         # 口座消去処理
         if self.bank.delete_account(user_id, account_number):
@@ -165,6 +175,7 @@ class BankingSystem:
         # ユーザ処理
         user_id = input("Enter user ID: ")
         account_number = input("Enter account number: ")
+        print(WAIT_ROW)
 
         # 口座情報取得
         self.bank.get_account_info(user_id, account_number)
