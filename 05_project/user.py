@@ -11,7 +11,7 @@ class User:
     def __str__(self):
         return f"User: {self.user_id}, Name: {self.name}"
 
-    def get_account(self, account_number):
+    def __get_account(self, account_number):
         for account in self.accounts:
             if account.account_number == account_number:
                 return account
@@ -34,7 +34,7 @@ class User:
         return False
     
     def deposit(self, account_number, amount):
-        account = self.get_account(account_number)
+        account = self.__get_account(account_number)
         msg = ""
 
         if account:
@@ -47,7 +47,7 @@ class User:
         return msg
     
     def withdraw(self, account_number, amount):
-        account = self.get_account(account_number)
+        account = self.__get_account(account_number)
         msg = ""
 
         if account:
@@ -62,16 +62,20 @@ class User:
     def check_ok_to_transfer(self, account_number, amount, is_from_side):
         is_ok = False
         is_account_exist = False
-        account = self.get_account(account_number)
+        account = self.__get_account(account_number)
         if account:
-            is_ok = True
             is_account_exist = True
+            if is_from_side:
+                if account.can_withdraw(amount):
+                    is_ok = True
+            else:
+                is_ok = True
         else:
             pass
         return is_ok, is_account_exist
     
     def view_transaction_history(self, account_number):
-        account = self.get_account(account_number)
+        account = self.__get_account(account_number)
         if account:
             for transaction in account.get_transaction_history():
                 print(transaction)
@@ -80,7 +84,7 @@ class User:
         return
 
     def view_balance(self, account_number):
-        account = self.get_account(account_number)
+        account = self.__get_account(account_number)
         if account:
             print(f"Account Balance: {account.balance}")
         else:
@@ -88,7 +92,7 @@ class User:
         return
     
     def get_account_info(self, account_number):
-        account = self.get_account(account_number)
+        account = self.__get_account(account_number)
         if account:
             print(account)
         else:

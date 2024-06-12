@@ -61,8 +61,9 @@ class Bank:
             is_ok_f, is_account_exist_f = user_f.check_ok_to_transfer(account_number_from, amount, True)
             is_ok_t, is_account_exist_t = user_t.check_ok_to_transfer(account_number_from, amount, False)
             if is_ok_f and is_ok_t:
-                user_f.withdraw(account_number_from, amount)
-                user_t.deposit(account_number_to, amount)
+                msg = user_f.withdraw(account_number_from, amount)
+                msg = user_t.deposit(account_number_to, amount)
+                # 返り値で得られるmsgは使わない．
                 print("Transfer successful!")
             elif (not is_account_exist_f) and (not is_account_exist_t):
                 print("Transfer failed! Check your balance or overdraft limit.")

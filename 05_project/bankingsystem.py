@@ -92,9 +92,7 @@ class BankingSystem:
         amount = float(input("Enter amount to deposit: "))
 
         # 入金処理
-        self.bank.deposit(user_id = user_id, 
-                          account_number = account_number, 
-                          amount = amount)
+        self.bank.deposit(user_id, account_number, amount)
 
     #\__ \__ \__ \__ \__ \__ \__ \__ \__ \__ \__ \__ \__ \__ \__ \__ \__ \__ \__ \__ \__ 
     # 口座からの出金
@@ -105,9 +103,7 @@ class BankingSystem:
         amount = float(input("Enter amount to withdraw: "))
 
         # 出金処理
-        self.bank.withdraw(user_id = user_id, 
-                           account_number = account_number, 
-                           amount = amount)
+        self.bank.withdraw(user_id, account_number, amount)
 
     #\__ \__ \__ \__ \__ \__ \__ \__ \__ \__ \__ \__ \__ \__ \__ \__ \__ \__ \__ \__ \__ 
     # 口座から別口座への送金
@@ -124,11 +120,7 @@ class BankingSystem:
         amount = float(input("Enter amount to transfer: "))
 
         # 送金処理
-        self.bank.transfer(user_id_from = user_id_from, 
-                           account_number_from = account_number_from,
-                           user_id_to = user_id_to, 
-                           account_number_to = account_number_to, 
-                           amount = amount)
+        self.bank.transfer(user_id_from, account_number_from, user_id_to, account_number_to, amount)
         return
 
     #\__ \__ \__ \__ \__ \__ \__ \__ \__ \__ \__ \__ \__ \__ \__ \__ \__ \__ \__ \__ \__ 
@@ -139,8 +131,7 @@ class BankingSystem:
         account_number = input("Enter account number: ")
         
         # 取引履歴取得処理
-        self.bank.view_transaction_history(user_id = user_id, 
-                                           account_number = account_number)
+        self.bank.view_transaction_history(user_id, account_number)
         return
 
     #\__ \__ \__ \__ \__ \__ \__ \__ \__ \__ \__ \__ \__ \__ \__ \__ \__ \__ \__ \__ \__ 
@@ -151,8 +142,7 @@ class BankingSystem:
         account_number = input("Enter account number: ")
 
         # 口座残高取得処理
-        self.bank.view_balance(user_id = user_id, 
-                               account_number = account_number)
+        self.bank.view_balance(user_id, account_number)
         return
 
     #\__ \__ \__ \__ \__ \__ \__ \__ \__ \__ \__ \__ \__ \__ \__ \__ \__ \__ \__ \__ \__ 
@@ -163,8 +153,7 @@ class BankingSystem:
         account_number = input("Enter account number: ")
 
         # 口座消去処理
-        if self.bank.delete_account(user_id = user_id, 
-                                    account_number = account_number):
+        if self.bank.delete_account(user_id, account_number):
             print("Account deleted successfully!")
         else:
             print("Failed to delete account!")
@@ -178,6 +167,5 @@ class BankingSystem:
         account_number = input("Enter account number: ")
 
         # 口座情報取得
-        self.bank.get_account_info(user_id = user_id, 
-                                   account_number = account_number)
+        self.bank.get_account_info(user_id, account_number)
         return
