@@ -43,12 +43,17 @@ class Bank:
     #___ ___ ___ ___ ___ ___ ___ ___ ___ ___ ___ ___ ___ ___ ___ ___ ___ ___ ___ ___ ___ ___ 
     def deposit(self, user_id, account_number, amount):
         user = self.__get_user(user_id)
-        if user:
-            msg = user.deposit(account_number, amount)
-            print(msg)
-        else:
-            print("User not found!")
-        return
+        try:
+            if user:
+                msg = user.deposit(account_number, amount)
+                print(msg)
+            else:
+                print("User not found!")
+            return
+        except (ValueError):
+            print("Invalid amount entered.")
+        except UnboundLocalError:
+            print("Error: 'UnboundLocalError deposit3.")
 
     #___ ___ ___ ___ ___ ___ ___ ___ ___ ___ ___ ___ ___ ___ ___ ___ ___ ___ ___ ___ ___ ___ 
     def withdraw(self, user_id, account_number, amount):

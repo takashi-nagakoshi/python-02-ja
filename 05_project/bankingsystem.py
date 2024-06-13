@@ -60,123 +60,159 @@ class BankingSystem:
     #\__ \__ \__ \__ \__ \__ \__ \__ \__ \__ \__ \__ \__ \__ \__ \__ \__ \__ \__ \__ \__ 
     # ユーザの登録
     def create_user(self):
-        # ユーザー入力
-        user_id = input("Enter user ID: ")
-        name = input("Enter user name: ")
-        print(WAIT_ROW)
+        try:
+            # ユーザー入力
+            user_id = input("Enter user ID: ")
+            name = input("Enter user name: ")
+            print(WAIT_ROW)
 
-        # ユーザ登録処理
-        if self.bank.create_user(user_id, name):
-            print("User created successfully!")
-        else:
-            print("User already exists!")
+            # ユーザ登録処理
+            if self.bank.create_user(user_id, name):
+                print("User created successfully!")
+            else:
+                print("User already exists!")
+        except Exception as e:
+            print(f"Error creating user: {e}")
 
     #\__ \__ \__ \__ \__ \__ \__ \__ \__ \__ \__ \__ \__ \__ \__ \__ \__ \__ \__ \__ \__ 
     # 口座の開設
     def create_account(self):
-        # ユーザ入力
-        user_id = input("Enter user ID: ")
-        account_type = input("Enter account type (savings/checking): ")
-        account_number = input("Enter account number: ")
-        balance = float(input("Enter initial balance: "))
-        print(WAIT_ROW)
+        try:
+            # ユーザ入力
+            user_id = input("Enter user ID: ")
+            account_type = input("Enter account type (savings/checking): ")
+            account_number = input("Enter account number: ")
+            balance = float(input("Enter initial balance: "))
+            print(WAIT_ROW)
 
-        # 口座開設処理
-        if self.bank.create_account(user_id, account_type, account_number, balance):
-            print("Account created successfully!")
-        else:
-            print("Failed to create account!")
+            # 口座開設処理
+            if self.bank.create_account(user_id, account_type, account_number, balance):
+                print("Account created successfully!")
+            else:
+                print("Failed to create account!")
+        except ValueError as e:
+            print(f"Invalid input: {e}")
+        except Exception as e:
+            print(f"Error creating account: {e}")
 
     #\__ \__ \__ \__ \__ \__ \__ \__ \__ \__ \__ \__ \__ \__ \__ \__ \__ \__ \__ \__ \__ 
     # 口座への入金
     def deposit(self):
         # ユーザ入力
-        user_id = input("Enter user ID: ")
-        account_number = input("Enter account number: ")
-        amount = float(input("Enter amount to deposit: "))
-        print(WAIT_ROW)
+        try:
+            user_id = input("Enter user ID: ")
+            account_number = input("Enter account number: ")
+            amount = float(input("Enter amount to deposit: "))
+            print(WAIT_ROW)
 
-        # 入金処理
-        self.bank.deposit(user_id, account_number, amount)
+            # 入金処理
+            self.bank.deposit(user_id, account_number, amount)
+        except (ValueError):
+            print("Invalid amount entered.")
+        except UnboundLocalError:
+            print("Error: 'UnboundLocalError deposit4.")
+
 
     #\__ \__ \__ \__ \__ \__ \__ \__ \__ \__ \__ \__ \__ \__ \__ \__ \__ \__ \__ \__ \__ 
     # 口座からの出金
     def withdraw(self):
-        # ユーザ入力
-        user_id = input("Enter user ID: ")
-        account_number = input("Enter account number: ")
-        amount = float(input("Enter amount to withdraw: "))
-        print(WAIT_ROW)
+        try:
+            # ユーザ入力
+            user_id = input("Enter user ID: ")
+            account_number = input("Enter account number: ")
+            amount = float(input("Enter amount to withdraw: "))
+            print(WAIT_ROW)
 
-        # 出金処理
-        self.bank.withdraw(user_id, account_number, amount)
+            # 出金処理
+            self.bank.withdraw(user_id, account_number, amount)
+        except ValueError as e:
+            print(f"Invalid amount entered: {e}")
+        except Exception as e:
+            print(f"Error during withdrawal: {e}")
+
 
     #\__ \__ \__ \__ \__ \__ \__ \__ \__ \__ \__ \__ \__ \__ \__ \__ \__ \__ \__ \__ \__ 
     # 口座から別口座への送金
     def transfer(self):
-        # ユーザ入力：送金元の情報
-        user_id_from = input("Enter sender user ID: ")
-        account_number_from = input("Enter sender account number: ")
+        try:
+            # ユーザ入力：送金元の情報
+            user_id_from = input("Enter sender user ID: ")
+            account_number_from = input("Enter sender account number: ")
 
-        # ユーザ入力：送金先の情報
-        user_id_to = input("Enter recipient user ID: ")
-        account_number_to = input("Enter recipient account number: ")
+            # ユーザ入力：送金先の情報
+            user_id_to = input("Enter recipient user ID: ")
+            account_number_to = input("Enter recipient account number: ")
 
-        # ユーザ入力：送金額の情報
-        amount = float(input("Enter amount to transfer: "))
-        print(WAIT_ROW)
+            # ユーザ入力：送金額の情報
+            amount = float(input("Enter amount to transfer: "))
+            print(WAIT_ROW)
 
-        # 送金処理
-        self.bank.transfer(user_id_from, account_number_from, user_id_to, account_number_to, amount)
-        return
+            # 送金処理
+            self.bank.transfer(user_id_from, account_number_from, user_id_to, account_number_to, amount)
+            return
+        except ValueError as e:
+            print(f"Invalid amount entered: {e}")
+        except Exception as e:
+            print(f"Error during transfer: {e}")
+
 
     #\__ \__ \__ \__ \__ \__ \__ \__ \__ \__ \__ \__ \__ \__ \__ \__ \__ \__ \__ \__ \__ 
     # 口座の取引履歴を表示
     def view_transaction_history(self):
-        # ユーザ入力
-        user_id = input("Enter user ID: ")
-        account_number = input("Enter account number: ")
-        print(WAIT_ROW)
-        
-        # 取引履歴取得処理
-        self.bank.view_transaction_history(user_id, account_number)
-        return
+        try:
+            # ユーザ入力
+            user_id = input("Enter user ID: ")
+            account_number = input("Enter account number: ")
+            print(WAIT_ROW)
+            
+            # 取引履歴取得処理
+            self.bank.view_transaction_history(user_id, account_number)
+            return
+        except Exception as e:
+            print(f"Error viewing transaction history: {e}")
 
     #\__ \__ \__ \__ \__ \__ \__ \__ \__ \__ \__ \__ \__ \__ \__ \__ \__ \__ \__ \__ \__ 
     # 口座の残高を表示
     def view_balance(self):
-        # ユーザ入力
-        user_id = input("Enter user ID: ")
-        account_number = input("Enter account number: ")
-        print(WAIT_ROW)
+        try:
+            # ユーザ入力
+            user_id = input("Enter user ID: ")
+            account_number = input("Enter account number: ")
+            print(WAIT_ROW)
 
-        # 口座残高取得処理
-        self.bank.view_balance(user_id, account_number)
-        return
-
+            # 口座残高取得処理
+            self.bank.view_balance(user_id, account_number)
+            return
+        except Exception as e:
+            print(f"Error viewing balance: {e}")
     #\__ \__ \__ \__ \__ \__ \__ \__ \__ \__ \__ \__ \__ \__ \__ \__ \__ \__ \__ \__ \__ 
     # 口座を解約(消去)
     def delete_account(self):
-        # ユーザ処理
-        user_id = input("Enter user ID: ")
-        account_number = input("Enter account number: ")
-        print(WAIT_ROW)
+        try:
+            # ユーザ処理
+            user_id = input("Enter user ID: ")
+            account_number = input("Enter account number: ")
+            print(WAIT_ROW)
 
-        # 口座消去処理
-        if self.bank.delete_account(user_id, account_number):
-            print("Account deleted successfully!")
-        else:
-            print("Failed to delete account!")
-        return
-
+            # 口座消去処理
+            if self.bank.delete_account(user_id, account_number):
+                print("Account deleted successfully!")
+            else:
+                print("Failed to delete account!")
+            return
+        except Exception as e:
+            print(f"Error deleting account: {e}")
     #\__ \__ \__ \__ \__ \__ \__ \__ \__ \__ \__ \__ \__ \__ \__ \__ \__ \__ \__ \__ \__ 
     # 口座の情報を表示
     def get_account_info(self):
-        # ユーザ処理
-        user_id = input("Enter user ID: ")
-        account_number = input("Enter account number: ")
-        print(WAIT_ROW)
+        try:
+            # ユーザ処理
+            user_id = input("Enter user ID: ")
+            account_number = input("Enter account number: ")
+            print(WAIT_ROW)
 
-        # 口座情報取得
-        self.bank.get_account_info(user_id, account_number)
-        return
+            # 口座情報取得
+            self.bank.get_account_info(user_id, account_number)
+            return
+        except Exception as e:
+            print(f"Error getting account info: {e}")

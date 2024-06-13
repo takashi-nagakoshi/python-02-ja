@@ -14,10 +14,16 @@ class Account(ABC):
 
     #指定された金額をアカウントに預金
     def deposit(self, amount):
-        if amount > 0:
-            self.balance += amount
-            self.transaction_history.append(f"Deposited {amount}")
-            return f"Deposited {amount}. New balance: {self.balance}"
+        try:
+            if amount > 0:
+                self.balance += amount
+                self.transaction_history.append(f"Deposited {amount}")
+                return f"Deposited {amount}. New balance: {self.balance}"
+        except ValueError:
+            print("Invalid amount entered.")
+        except UnboundLocalError:
+            print("Error: 'UnboundLocalError deposit1.")
+
 
     #can_withdraw(amount) に基づいて引き出し
     def withdraw(self, amount):
