@@ -16,7 +16,10 @@ class User:
             if account.account_number == account_number:
                 return account
         return None
-    
+    # 口座番号は数字だけに限定し，その上で上限桁数を設定する
+    def is_valid_account_number(self, account_number, max_length=10):
+        return account_number.isdigit() and len(account_number) <= max_length
+
     def check_account_number_already_exist(self, account_number):
         account = self.__get_account(account_number)
         if account:
@@ -25,6 +28,11 @@ class User:
             return False
 
     def create_account(self, account_type, account_number, balance=0.0):
+        # 追加部分: 口座番号が有効かどうかをチェック
+        if not self.is_valid_account_number(account_number):
+            print("Invalid account number! It must be numeric and up to 10 digits long.")  
+            return False
+        
         account = self.__get_account(account_number)
         if account:
             # 既に同一IDのアカウントがあるとき，口座を追加しないようにする．
