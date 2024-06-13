@@ -58,15 +58,20 @@ class User:
         account = self.__get_account(account_number)
         msg = ""
 
-        if account:
-            if account.deposit(amount):
-                msg = "Deposit successful!"
+        try:
+            if account:
+                if account.deposit(amount):
+                    msg = "Deposit successful!"
+                else:
+                    msg = "Deposit failed!"
             else:
-                msg = "Deposit failed!"
-        else:
-            msg = "Account not found!"
-        return msg
-    
+                msg = "Account not found!"
+            return msg
+        except (ValueError):
+            print("Invalid amount entered.")
+        except UnboundLocalError:
+            print("Error: 'UnboundLocalError deposit2.")
+
     def withdraw(self, account_number, amount):
         account = self.__get_account(account_number)
         msg = ""
