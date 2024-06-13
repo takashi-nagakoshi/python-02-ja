@@ -54,7 +54,7 @@ class SavingsAccount(Account):
     
     # 貯蓄口座情報を文字列で返す
     def __str__(self):
-        return f"Savings Account: {self.account_number}, Balance: {self.balance}, Interest Rate: {self.interest_rate}"
+        return f"Savings Account: {self.account_number}, Balance: {self.balance}"
 
 #_____________________________________________________________________________________________________#
 # 当座預金口座
@@ -67,4 +67,4 @@ class CheckingAccount(Account):
         return self.balance >= amount
     
     def __str__(self):
-        return f"Checking Account: {self.account_number}, Balance: {self.balance}, Interest Rate: {self.interest_rate}"
+        return f"Checking Account: {self.account_number}, Balance: {self.balance}"
