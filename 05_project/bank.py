@@ -130,6 +130,14 @@ class Bank:
             return user.check_passwd_is_correct(passwd)
         else:
             return False
+    
+    #___ ___ ___ ___ ___ ___ ___ ___ ___ ___ ___ ___ ___ ___ ___ ___ ___ ___ ___ ___ ___ ___ 
+    def check_account_number_exist(self, user_id, account_number):
+        user = self.__get_user(user_id)
+        if user:
+            return user.check_account_number_exist(account_number)
+        else:
+            return False
 
         
 

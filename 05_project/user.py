@@ -17,6 +17,7 @@ class User:
             if account.account_number == account_number:
                 return account
         return None
+    
     # 口座番号は数字だけに限定し，その上で上限桁数を設定する
     def is_valid_account_number(self, account_number, max_length=10):
         return account_number.isdigit() and len(account_number) <= max_length
@@ -128,3 +129,10 @@ class User:
     
     def check_passwd_is_correct(self, passwd):
         return self.__passwd == passwd
+    
+    def check_account_number_exist(self, account_number):
+        account = self.__get_account(account_number)
+        if account:
+            return True
+        else:
+            return False
