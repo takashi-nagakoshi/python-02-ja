@@ -3,9 +3,10 @@ import account as ClassAccount
 #_____________________________________________________________________________________________________#
 # ユーザー情報を管理するクラス 
 class User:
-    def __init__(self, user_id, name):
+    def __init__(self, user_id, name, passwd):
         self.user_id = user_id
         self.name = name
+        self.__passwd = passwd
         self.accounts = []
 
     def __str__(self):
@@ -124,3 +125,6 @@ class User:
         else:
             print("Account not found!")
         return
+    
+    def check_passwd_is_correct(self, passwd):
+        return self.__passwd == passwd

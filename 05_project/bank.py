@@ -15,12 +15,12 @@ class Bank:
         return None
 
     #___ ___ ___ ___ ___ ___ ___ ___ ___ ___ ___ ___ ___ ___ ___ ___ ___ ___ ___ ___ ___ ___ 
-    def create_user(self, user_id, name):
+    def create_user(self, user_id, name, passwd):
         existing_user = self.__get_user(user_id)
         if existing_user:
             return False
         else:
-            new_user = ClassUser.User(user_id, name)
+            new_user = ClassUser.User(user_id, name, passwd)
             self.users.append(new_user)
             return True
 
@@ -114,6 +114,22 @@ class Bank:
         else:
             print("User not found!")
         return
+    
+    #___ ___ ___ ___ ___ ___ ___ ___ ___ ___ ___ ___ ___ ___ ___ ___ ___ ___ ___ ___ ___ ___ 
+    def check_user_id_exist(self, user_id):
+        user = self.__get_user(user_id)
+        if user:
+            return True
+        else:
+            return False
+        
+    #___ ___ ___ ___ ___ ___ ___ ___ ___ ___ ___ ___ ___ ___ ___ ___ ___ ___ ___ ___ ___ ___ 
+    def check_user_id_and_password_are_correct(self, user_id, passwd):
+        user = self.__get_user(user_id)
+        if user:
+            return user.check_passwd_is_correct(passwd)
+        else:
+            return False
 
         
 
